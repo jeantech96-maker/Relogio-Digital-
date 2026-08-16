@@ -1,0 +1,636 @@
+/* ============================================
+   RELÓGIO MATERIAL DESIGN — Tema Escuro/Claro
+   Otimizado para SEO + Acessibilidade
+   ============================================ */
+
+/* ---- Paleta Material Design — MODO ESCURO (padrão) ---- */
+:root {
+    --md-primary: #7c4dff;
+    --md-primary-light: #b47cff;
+    --md-primary-dark: #3f1dcb;
+    --md-secondary: #00bfa5;
+    --md-secondary-light: #5df2d6;
+    --md-surface: #1e1e2e;
+    --md-surface-light: #2d2d44;
+    --md-surface-elevated: #252538;
+    --md-background: #12121a;
+    --md-text-primary: #ffffff;
+    --md-text-secondary: #b0b0c0;
+    --md-text-muted: #6e6e8a;
+    --md-accent: #ff4081;
+    --md-accent-light: #ff79b0;
+    --md-shadow-1: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --md-shadow-2: 0 3px 6px rgba(0,0,0,0.3), 0 3px 6px rgba(0,0,0,0.2);
+    --md-shadow-3: 0 10px 20px rgba(0,0,0,0.35), 0 6px 6px rgba(0,0,0,0.25);
+    --md-shadow-4: 0 14px 28px rgba(0,0,0,0.4), 0 10px 10px rgba(0,0,0,0.3);
+    --md-radius: 16px;
+    --md-radius-sm: 12px;
+    --md-radius-xs: 8px;
+    --font-display: 'Montserrat', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+}
+
+/* ---- Paleta Material Design — MODO CLARO ---- */
+[data-tema="claro"] {
+    --md-primary: #6200ea;
+    --md-primary-light: #9d46ff;
+    --md-primary-dark: #0a00b6;
+    --md-secondary: #009688;
+    --md-secondary-light: #52c7b8;
+    --md-surface: #ffffff;
+    --md-surface-light: #f5f5f5;
+    --md-surface-elevated: #ffffff;
+    --md-background: #f0f2f5;
+    --md-text-primary: #212121;
+    --md-text-secondary: #616161;
+    --md-text-muted: #9e9e9e;
+    --md-accent: #e91e63;
+    --md-accent-light: #f06292;
+    --md-shadow-1: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --md-shadow-2: 0 3px 6px rgba(0,0,0,0.1), 0 3px 6px rgba(0,0,0,0.08);
+    --md-shadow-3: 0 10px 20px rgba(0,0,0,0.12), 0 6px 6px rgba(0,0,0,0.08);
+    --md-shadow-4: 0 14px 28px rgba(0,0,0,0.15), 0 10px 10px rgba(0,0,0,0.1);
+}
+
+/* ---- Reset & Base ---- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-display);
+    background: var(--md-background);
+    color: var(--md-text-primary);
+    position: relative;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* ---- Header oculto (para SEO, visível para leitores de tela) ---- */
+.d-none {
+    display: none !important;
+}
+
+/* ---- Fundo Animado Gradient — MODO ESCURO ---- */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(124, 77, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 191, 165, 0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 64, 129, 0.08) 0%, transparent 60%);
+    z-index: -2;
+    animation: ambientPulse 8s ease-in-out infinite;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, #12121a 0%, #1a1a2e 50%, #16213e 100%);
+    z-index: -3;
+}
+
+/* ---- Fundo Animado Gradient — MODO CLARO ---- */
+[data-tema="claro"] body::before {
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(98, 0, 234, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 150, 136, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(233, 30, 99, 0.04) 0%, transparent 60%);
+}
+
+[data-tema="claro"] body::after {
+    background: linear-gradient(135deg, #e8eaf6 0%, #f3e5f5 50%, #e0f2f1 100%);
+}
+
+@keyframes ambientPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ============================================
+   BOTÃO TOGGLE TEMA
+   ============================================ */
+.btn-toggle-tema {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    z-index: 1000;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: var(--md-surface-elevated);
+    color: var(--md-text-primary);
+    box-shadow: var(--md-shadow-3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.btn-toggle-tema:hover {
+    transform: scale(1.12) rotate(15deg);
+    box-shadow: var(--md-shadow-4);
+}
+
+.btn-toggle-tema:active {
+    transform: scale(0.95);
+}
+
+.btn-toggle-tema i {
+    transition: transform 0.4s ease;
+}
+
+.btn-toggle-tema:hover i {
+    transform: rotate(360deg);
+}
+
+/* Focus visible para acessibilidade */
+.btn-toggle-tema:focus-visible {
+    outline: 3px solid var(--md-secondary);
+    outline-offset: 3px;
+}
+
+/* ============================================
+   INDICADOR DE MODO
+   ============================================ */
+.modo-indicador {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--md-text-muted);
+    background: var(--md-surface-elevated);
+    border: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+/* ============================================
+   CARD MATERIAL
+   ============================================ */
+.material-card {
+    background: rgba(30, 30, 46, 0.92) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: var(--md-radius) !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background 0.5s ease;
+}
+
+.material-card:hover {
+    transform: translateY(-4px);
+}
+
+[data-tema="claro"] .material-card {
+    background: rgba(255, 255, 255, 0.92) !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.shadow-elevated {
+    box-shadow: var(--md-shadow-4) !important;
+}
+
+/* Focus visible no card */
+.material-card:focus-visible {
+    outline: 3px solid var(--md-secondary);
+    outline-offset: 4px;
+}
+
+/* ============================================
+   SAUDAÇÃO
+   ============================================ */
+.saudacao {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--md-primary-dark), var(--md-primary));
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    box-shadow: var(--md-shadow-2);
+    transition: all 0.3s ease;
+}
+
+.saudacao i {
+    font-size: 1.1rem;
+}
+
+.saudacao.manha {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+}
+
+.saudacao.tarde {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+}
+
+.saudacao.noite {
+    background: linear-gradient(135deg, #3f51b5, #1a237e);
+}
+
+.saudacao.madrugada {
+    background: linear-gradient(135deg, #263238, #37474f);
+}
+
+/* ============================================
+   TÍTULO
+   ============================================ */
+.titulo-principal {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--md-text-primary);
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 10px rgba(124, 77, 255, 0.3);
+    transition: color 0.5s ease;
+}
+
+.titulo-principal i {
+    color: var(--md-secondary);
+    font-size: 1.4rem;
+}
+
+[data-tema="claro"] .titulo-principal {
+    text-shadow: 0 2px 10px rgba(98, 0, 234, 0.15);
+}
+
+/* ============================================
+   RELOGIO BLOCOS
+   ============================================ */
+.relogio-container {
+    flex-wrap: nowrap;
+}
+
+.relogio-bloco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 120px;
+    border-radius: var(--md-radius-sm);
+    background: var(--md-surface-elevated);
+    border: 1px solid rgba(128, 128, 128, 0.08);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background 0.5s ease,
+                border-color 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.relogio-bloco::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--md-primary), var(--md-secondary));
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.relogio-bloco:hover {
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: var(--md-shadow-3);
+}
+
+.relogio-bloco:hover::before {
+    opacity: 1;
+}
+
+.relogio-bloco:focus-visible {
+    outline: 3px solid var(--md-secondary);
+    outline-offset: 2px;
+}
+
+.relogio-bloco.ativo {
+    animation: blocoPulse 0.35s ease;
+}
+
+@keyframes blocoPulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+.relogio-numero {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: var(--md-text-primary);
+    line-height: 1;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px rgba(124, 77, 255, 0.4);
+    transition: color 0.5s ease, text-shadow 0.5s ease;
+}
+
+#segundos {
+    color: var(--md-secondary);
+    text-shadow: 0 0 20px rgba(0, 191, 165, 0.5);
+}
+
+.relogio-label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--md-text-muted);
+    margin-top: 8px;
+    transition: color 0.5s ease;
+}
+
+/* ---- Separador ---- */
+.separador {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+}
+
+.separador-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--md-primary);
+    box-shadow: 0 0 8px rgba(124, 77, 255, 0.6);
+    animation: separadorBlink 1s ease-in-out infinite;
+}
+
+.separador-dot:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+@keyframes separadorBlink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ============================================
+   DATA
+   ============================================ */
+.data-container {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--md-text-secondary);
+    background: var(--md-surface-elevated);
+    border: 1px solid rgba(128, 128, 128, 0.08);
+    transition: all 0.3s ease, background 0.5s ease, color 0.5s ease;
+}
+
+.data-container:hover {
+    border-color: rgba(128, 128, 128, 0.2);
+    transform: translateY(-2px);
+}
+
+.data-container i {
+    color: var(--md-accent);
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   PROGRESSO DO DIA
+   ============================================ */
+.progresso-dia {
+    padding: 0 4px;
+}
+
+.progresso-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--md-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.5s ease;
+}
+
+.progresso-porcentagem {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--md-secondary);
+    transition: color 0.5s ease;
+}
+
+.material-progress {
+    height: 8px;
+    border-radius: 50px;
+    background: var(--md-surface-elevated);
+    overflow: hidden;
+    border: 1px solid rgba(128, 128, 128, 0.06);
+    transition: background 0.5s ease;
+}
+
+.material-progress .progress-bar {
+    background: linear-gradient(90deg, var(--md-primary), var(--md-secondary), var(--md-accent));
+    border-radius: 50px;
+    transition: width 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 0 10px rgba(124, 77, 255, 0.3);
+}
+
+/* ============================================
+   INFO EXTRAS
+   ============================================ */
+.info-extras {
+    flex-wrap: wrap;
+}
+
+.info-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--md-text-secondary);
+    background: var(--md-surface-elevated);
+    border: 1px solid rgba(128, 128, 128, 0.08);
+    transition: all 0.3s ease, background 0.5s ease, color 0.5s ease;
+}
+
+.info-pill:hover {
+    transform: translateY(-3px);
+    border-color: rgba(128, 128, 128, 0.15);
+    box-shadow: var(--md-shadow-2);
+}
+
+.info-pill i {
+    color: var(--md-primary-light);
+    font-size: 1rem;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer-text {
+    color: var(--md-text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: color 0.5s ease;
+}
+
+.footer-link {
+    color: var(--md-primary-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--md-secondary);
+    text-decoration: underline;
+}
+
+.footer-link:focus-visible {
+    outline: 2px solid var(--md-secondary);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   UTILITÁRIOS MATERIAL
+   ============================================ */
+.material-elevated {
+    box-shadow: var(--md-shadow-2);
+}
+
+.material-elevated-light {
+    box-shadow: var(--md-shadow-1);
+}
+
+/* ============================================
+   RESPONSIVIDADE
+   ============================================ */
+@media (max-width: 576px) {
+    .btn-toggle-tema {
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+    }
+
+    .relogio-bloco {
+        width: 72px;
+        height: 90px;
+    }
+
+    .relogio-numero {
+        font-size: 1.7rem;
+    }
+
+    .relogio-label {
+        font-size: 0.55rem;
+        letter-spacing: 1px;
+    }
+
+    .separador-dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    .titulo-principal {
+        font-size: 1.2rem;
+    }
+
+    .data-container {
+        font-size: 0.8rem;
+        padding: 10px 18px;
+    }
+
+    .info-pill {
+        font-size: 0.7rem;
+        padding: 6px 12px;
+    }
+
+    .card-body {
+        padding: 1.5rem 1rem !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .relogio-bloco {
+        width: 60px;
+        height: 78px;
+    }
+
+    .relogio-numero {
+        font-size: 1.4rem;
+    }
+
+    .relogio-label {
+        font-size: 0.5rem;
+    }
+}
+
+/* ============================================
+   ANIMAÇÃO DE ENTRADA
+   ============================================ */
+.material-card {
+    animation: cardEntrance 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.relogio-bloco:nth-child(1) { animation-delay: 0.1s; }
+.relogio-bloco:nth-child(3) { animation-delay: 0.2s; }
+.relogio-bloco:nth-child(5) { animation-delay: 0.3s; }
+
+/* ============================================
+   SEO: Skip link visual (focus only)
+   ============================================ */
+.visually-hidden-focusable:not(:focus) {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.visually-hidden-focusable:focus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #7c4dff;
+    color: #fff;
+    padding: 8px 16px;
+    z-index: 9999;
+    text-decoration: none;
+    border-radius: 0 0 8px 0;
+    font-weight: 600;
+}

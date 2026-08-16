@@ -1,0 +1,22 @@
+{
+    "name": "Relógio Digital Material Design",
+    "short_name": "Relógio Digital",
+    "description": "Relógio digital online com Material Design. Horário em tempo real, data, saudação inteligente e modo escuro/claro.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#12121A",
+    "theme_color": "#7C4DFF",
+    "lang": "pt-BR",
+    "icons": [
+        {
+            "src": "icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

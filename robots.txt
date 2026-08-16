@@ -1,0 +1,12 @@
+# Relógio Digital Material Design — robots.txt
+# Permite indexação completa pelos motores de busca
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.seudominio.com/sitemap.xml
+
+# Desabilita acesso a arquivos internos
+Disallow: /README.md
+Disallow: /descrição.txt
